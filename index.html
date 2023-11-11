@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вгадай число</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        input {
+            padding: 5px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Вгадай число</h1>
+    
+    <p>Введіть число від 1 до 100:</p>
+    <input type="number" id="userGuess" min="1" max="100">
+    <button onclick="checkGuess()">Перевірити</button>
+    <button onclick="newGame()">Нова гра</button>
+    
+    <p id="message"></p>
+    <p id="attempts"></p>
+
+    <script>
+        var secretNumber;
+        var attempts;
+
+        // Функція для початку нової гри
+        function newGame() {
+            secretNumber = generateRandomNumber();
+            attempts = 0;
+            document.getElementById("message").innerHTML = "";
+            document.getElementById("attempts").innerHTML = "";
+            document.getElementById("userGuess").value = "";
+        }
+
+        // Функція для генерації випадкового числа
+        function generateRandomNumber() {
+            return Math.floor(Math.random() * 100) + 1;
+        }
+
+        function checkGuess() {
+            var userGuess = parseInt(document.getElementById("userGuess").value);
+            attempts++;
+
+            if (userGuess === secretNumber) {
+                document.getElementById("message").innerHTML = "Ви вгадали!";
+                document.getElementById("message").style.color = "green";
+                document.getElementById("attempts").innerHTML = "Кількість спроб: " + attempts;
+            } else if (userGuess < secretNumber) {
+                document.getElementById("message").innerHTML = "Загадане число більше";
+                document.getElementById("message").style.color = "red";
+            } else {
+                document.getElementById("message").innerHTML = "Загадане число менше";
+                document.getElementById("message").style.color = "red";
+            }
+        }
+
+        // Запускаємо нову гру при завантаженні сторінки
+        newGame();
+    </script>
+
+</body>
+</html>
+
